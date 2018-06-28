@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\WebAPIs\AccountAPI.cs" />
     <Compile Include="DataLayer\Context\Entities.cs" />
     <Compile Include="DataLayer\Repository\Definitions\UserDefinitions.cs" />
     <Compile Include="DataLayer\Repository\Implementations\UserRepository.cs" />
@@ -104,6 +105,9 @@
     </Compile>
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\DependencyInjector.cs" />
+    <Compile Include="Resources\Helpers\JsonHelper.cs" />
+    <Compile Include="Workers\UserWorker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -116,7 +120,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
