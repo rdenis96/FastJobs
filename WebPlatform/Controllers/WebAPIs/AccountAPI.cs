@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using WebPlatform.Models;
+using WebPlatform.Resources;
 using WebPlatform.Resources.Helpers;
 using WebPlatform.Workers;
 
@@ -31,8 +32,18 @@ namespace WebPlatform.Controllers.WebAPIs
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        [Route(Name = "checkUserExist")]
+        [HttpPost]
+        public IHttpActionResult CheckUserExist([FromBody]string email, [FromBody]string password)
         {
+            User user = userWorker.GetByEmail(email);
+            if (user == null)
+                return Ok(ResultMessages.NoUserByEmail());
+            var encryptedPassword = PasswordEncryptor.MD5Hash(password);
+            if (user.Password.Equals(encryptedPassword))
+            {
+            }
+            return Ok(ResultMessages.WrongCredentials());
         }
 
         // PUT api/<controller>/5

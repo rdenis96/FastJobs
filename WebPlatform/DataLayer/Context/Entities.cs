@@ -8,9 +8,9 @@ using WebPlatform.Models;
 
 namespace WebPlatform.DataLayer.Context
 {
-    public class Entities:DbContext
+    public class Entities : DbContext
     {
-        public Entities() : base("name=BlogContext")
+        public Entities() : base("name=Entities")
         {
             //code first, database first, model first
             Database.SetInitializer<Entities>(new CreateDatabaseIfNotExists<Entities>());
@@ -18,7 +18,6 @@ namespace WebPlatform.DataLayer.Context
         }
 
         public DbSet<User> Users { get; set; }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
