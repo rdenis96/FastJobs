@@ -2,6 +2,8 @@
     Layout = null;
 }
 
+@model WebPlatform.Models.User
+
 <!DOCTYPE html>
 
 <html>
@@ -187,15 +189,28 @@
                 <div class="col-md-4 col-sm-6">
                 </div>
                 <div class="col-md-4 col-sm-6">
-                    <form role="form" action="#" method="POST">
+                    <form id="formRegister" role="form" method="post" action="StartPage/Register">
+
                         <div class="form-group">
-                            <input class="form-control bg-dark" placeholder="Email" name="emailRegister" type="email" autofocus>
+                            <input class="form-control bg-dark" placeholder="Email" name="emailRegister" type="email" autofocus required>
                         </div>
                         <div class="form-group">
-                            <input class="form-control bg-dark" placeholder="Password" name="passwordRegister" type="password" value="">
+                            <input class="form-control bg-dark" placeholder="Password" name="passwordRegister" type="password" value="" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control bg-dark" placeholder="Confirm Password" name="passwordConfirmRegister" type="password" value="" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control bg-dark" placeholder="First Name" name="firstnameRegister" type="text" value="" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control bg-dark" placeholder="Last Name" name="lastnameRegister" type="text" value="" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control bg-dark" placeholder="Phone" name="phoneRegister" type="tel" value="">
                         </div>
                         <div class="form-group text-center">
-                            <input type="submit" class="btn btn-common wow fadeInUp" value="Submit">
+                            <input id="submitReg" type="button" class="btn btn-common wow fadeInUp" value="Submit">
                         </div>
                     </form>
                 </div>

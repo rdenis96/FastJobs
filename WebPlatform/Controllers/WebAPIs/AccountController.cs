@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -11,8 +12,7 @@ using WebPlatform.Workers;
 
 namespace WebPlatform.Controllers.WebAPIs
 {
-    [RoutePrefix("api/account")]
-    public class AccountAPI : ApiController
+    public class AccountController : ApiController
     {
         private UserWorker userWorker = new UserWorker();
 
@@ -23,7 +23,6 @@ namespace WebPlatform.Controllers.WebAPIs
         }
 
         // GET api/<controller>/5
-        [Route(Name = "getAllUsers")]
         [HttpGet]
         public IHttpActionResult GetAll(int id)
         {
@@ -31,19 +30,33 @@ namespace WebPlatform.Controllers.WebAPIs
             return Ok(users);
         }
 
-        // POST api/<controller>
-        [Route(Name = "checkUserExist")]
         [HttpPost]
-        public IHttpActionResult CheckUserExist([FromBody]string email, [FromBody]string password)
+        public IHttpActionResult CheckUserExist([FromBody]User userCredentials)
+        {
+            Debug.Write(userCredentials.ToJSON());
+            User user = userWorker.GetByEmail("email");
+            if (user == null)
+                return Ok(ResultMessages.NoUserByEmail);
+            var encryptedPassword = PasswordEncryptor.MD5Hash("passw");
+            if (user.Password.Equals(encryptedPassword))
+            {
+                return Ok(ResultMessages.CorrectLoginCredentials);
+            }
+            return Ok(ResultMessages.WrongCredentials);
+        }
+
+        [HttpPost]
+        public IHttpActionResult CheckUserExist(string email, string password)
         {
             User user = userWorker.GetByEmail(email);
             if (user == null)
-                return Ok(ResultMessages.NoUserByEmail());
+                return Ok(ResultMessages.NoUserByEmail);
             var encryptedPassword = PasswordEncryptor.MD5Hash(password);
             if (user.Password.Equals(encryptedPassword))
             {
+                return Ok(ResultMessages.CorrectLoginCredentials);
             }
-            return Ok(ResultMessages.WrongCredentials());
+            return Ok(ResultMessages.WrongCredentials);
         }
 
         // PUT api/<controller>/5

@@ -269,7 +269,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\StartPageController.cs" />
-    <Compile Include="Controllers\WebAPIs\AccountAPI.cs" />
+    <Compile Include="Controllers\WebAPIs\AccountController.cs" />
     <Compile Include="DataLayer\Context\Entities.cs" />
     <Compile Include="DataLayer\Repository\Definitions\UserDefinitions.cs" />
     <Compile Include="DataLayer\Repository\Implementations\UserRepository.cs" />
