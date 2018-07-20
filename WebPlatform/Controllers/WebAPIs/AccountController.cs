@@ -31,27 +31,29 @@ namespace WebPlatform.Controllers.WebAPIs
         }
 
         [HttpPost]
-        public IHttpActionResult CheckUserExist([FromBody]User userCredentials)
+        public IHttpActionResult Register([FromBody]User userCredentials)
         {
-            Debug.Write(userCredentials.ToJSON());
-            User user = userWorker.GetByEmail("email");
-            if (user == null)
-                return Ok(ResultMessages.NoUserByEmail);
-            var encryptedPassword = PasswordEncryptor.MD5Hash("passw");
-            if (user.Password.Equals(encryptedPassword))
+            userCredentials.Ip = IpHelper.GetIpAddress();
+            var user = userWorker.GetByEmail(userCredentials.Email);
+            if (user != null)
             {
-                return Ok(ResultMessages.CorrectLoginCredentials);
+                return Ok(ResultMessages.RegisterEmailExist);
             }
-            return Ok(ResultMessages.WrongCredentials);
+
+            var encryptedPassword = PasswordEncryptor.MD5Hash(userCredentials.Password);
+            userCredentials.Password = encryptedPassword;
+            userWorker.Create(userCredentials);
+            RedirectToRoute("Home", null);
+            return Ok(ResultMessages.RegisterSuccessful);
         }
 
         [HttpPost]
-        public IHttpActionResult CheckUserExist(string email, string password)
+        public IHttpActionResult Login([FromBody]User userCredentials)
         {
-            User user = userWorker.GetByEmail(email);
+            User user = userWorker.GetByEmail(userCredentials.Email);
             if (user == null)
                 return Ok(ResultMessages.NoUserByEmail);
-            var encryptedPassword = PasswordEncryptor.MD5Hash(password);
+            var encryptedPassword = PasswordEncryptor.MD5Hash(userCredentials.Password);
             if (user.Password.Equals(encryptedPassword))
             {
                 return Ok(ResultMessages.CorrectLoginCredentials);

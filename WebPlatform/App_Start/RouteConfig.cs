@@ -17,6 +17,12 @@ namespace WebPlatform
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "StartPage", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Home",
+                url: "home/{action}/{id}",
+                defaults: new { action = "Index", id = UrlParameter.Optional }
+                );
         }
     }
 }

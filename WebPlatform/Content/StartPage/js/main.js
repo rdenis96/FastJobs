@@ -160,41 +160,45 @@
 
     $(document).ready(function () {
         $('#submitReg').on('click', function (e) {
-            //Get user IP
-            var ip;
-            $.ajax({
-                type: "POST",
-                url: "http://jsonip.com?callback=?",
-                data: { get: "ip" },
-                dataType: "json",
-                context: document.body,
-                async: true,
-                success: function (res, stato) {
-                    ip = res.ip;
-                    myCallback();
-                },
-                error: function (res, stato) {
-                    alert("IP thing didn't work.");
-                }
-            });
-            
             //Create User object with retrieved data from inputs
             var userCredentials = {
                 email: $("[name=emailRegister]").val(),
                 password: $("[name=passwordRegister]").val(),
                 firstname: $("[name=firstnameRegister]").val(),
                 lastname: $("[name=lastnameRegister]").val(),
-                phone: $("[name=phoneRegister]").val(),
-                ip: ip
+                phone: $("[name=phoneRegister]").val()
             }
             e.preventDefault();
             $.ajax({
                 type: 'POST',
-                url: 'api/account/checkUserExist',
+                url: 'api/account/register',
                 data: userCredentials,
                 contentType: "application/x-www-form-urlencoded",
                 success: function (data) {
                     alert(JSON.stringify(data));
+                    //window.location.replace('../home')
+                }
+            });
+        });
+    });
+
+
+    $(document).ready(function () {
+        $('#submitLogin').on('click', function (e) {
+            //Create User object with retrieved data from inputs
+            var userCredentials = {
+                email: $("[name=emailLogin]").val(),
+                password: $("[name=passwordLogin]").val()
+            }
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: 'api/account/login',
+                data: userCredentials,
+                contentType: "application/x-www-form-urlencoded",
+                success: function (data) {
+                    alert(JSON.stringify(data));
+                    window.location.replace('../home')
                 }
             });
         });
