@@ -158,9 +158,15 @@
        ========================================================================== */
     $('#loader').fadeOut();
 
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+
     $(document).ready(function () {
         $('#submitReg').on('click', function (e) {
             //Create User object with retrieved data from inputs
+
             var userCredentials = {
                 email: $("[name=emailRegister]").val(),
                 password: $("[name=passwordRegister]").val(),
@@ -168,6 +174,32 @@
                 lastname: $("[name=lastnameRegister]").val(),
                 phone: $("[name=phoneRegister]").val()
             }
+
+            if (!isEmail(userCredentials.email)) {
+                alert("Email format is not correct!");
+                return;
+            }
+
+            if (userCredentials.password.length < 6) {
+                alert("Password length must be at least 6 characters!");
+                return;
+            }
+
+            if (userCredentials.password != $("[name=passwordConfirmRegister]").val()) {
+                alert("Password is not the same with confirmation password!");
+                return;
+            }
+
+            if (userCredentials.firstname.length < 1) {
+                alert("Please type your firstname!");
+                return;
+            }
+
+            if (userCredentials.lastname.length < 1) {
+                alert("Please type your lastname!");
+                return;
+            }
+
             e.preventDefault();
             $.ajax({
                 type: 'POST',
@@ -181,7 +213,6 @@
             });
         });
     });
-
 
     $(document).ready(function () {
         $('#submitLogin').on('click', function (e) {
@@ -197,8 +228,12 @@
                 data: userCredentials,
                 contentType: "application/x-www-form-urlencoded",
                 success: function (data) {
-                    alert(JSON.stringify(data));
-                    window.location.replace('../home')
+                    if (data.userId == -1)
+                        alert(data.message);
+                    else {
+                        alert(data.message);
+                        window.location.replace('../home')
+                    }
                 }
             });
         });

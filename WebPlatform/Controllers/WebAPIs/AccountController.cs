@@ -51,14 +51,32 @@ namespace WebPlatform.Controllers.WebAPIs
         public IHttpActionResult Login([FromBody]User userCredentials)
         {
             User user = userWorker.GetByEmail(userCredentials.Email);
+            var result = new { message = "", userId = -1 };
             if (user == null)
-                return Ok(ResultMessages.NoUserByEmail);
+            {
+                result = new
+                {
+                    message = ResultMessages.WrongCredentials,
+                    userId = -1
+                };
+                return Ok(result);
+            }
             var encryptedPassword = PasswordEncryptor.MD5Hash(userCredentials.Password);
             if (user.Password.Equals(encryptedPassword))
             {
-                return Ok(ResultMessages.CorrectLoginCredentials);
+                result = new
+                {
+                    message = ResultMessages.CorrectLoginCredentials,
+                    userId = user.Id
+                };
+                return Ok(result);
             }
-            return Ok(ResultMessages.WrongCredentials);
+            result = new
+            {
+                message = ResultMessages.WrongCredentials,
+                userId = -1
+            };
+            return Ok(result);
         }
 
         // PUT api/<controller>/5
