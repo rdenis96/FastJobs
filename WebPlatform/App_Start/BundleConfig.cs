@@ -51,6 +51,9 @@ namespace WebPlatform
                         "~/Content/StartPage/css",
                         "*.css",
                         true));
+
+            bundles.Add(new StyleBundle("~/bundles/Global/css").Include(
+                        "~/Content/Global/Navbar.css"));
         }
     }
 }
