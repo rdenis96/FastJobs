@@ -15,6 +15,7 @@ namespace WebPlatform.Controllers.WebAPIs
     public class AccountController : ApiController
     {
         private UserWorker userWorker = new UserWorker();
+        private PersonalProfileWorker personalProfileWorker = new PersonalProfileWorker();
 
         // GET api/<controller>
         public IEnumerable<string> Get()
@@ -42,8 +43,20 @@ namespace WebPlatform.Controllers.WebAPIs
 
             var encryptedPassword = PasswordEncryptor.MD5Hash(userCredentials.Password);
             userCredentials.Password = encryptedPassword;
-            userWorker.Create(userCredentials);
-            RedirectToRoute("Home", null);
+            user = userWorker.Create(userCredentials);
+
+            if (user == null)
+            {
+                return Ok(ResultMessages.RegisterFailed);
+            }
+            PersonalProfile personalProfile = new PersonalProfile
+            {
+                Id = user.Id,
+                Born = DateTime.UtcNow.AddYears(-18),
+                Image = DefaultConstants.RegisterImage
+            };
+            personalProfile = personalProfileWorker.Create(personalProfile);
+
             return Ok(ResultMessages.RegisterSuccessful);
         }
 

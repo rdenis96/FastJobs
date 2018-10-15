@@ -20,7 +20,7 @@ namespace WebPlatform
 
             routes.MapRoute(
                 name: "Home",
-                url: "home/{action}/{id}",
+                url: "Home/{action}/{id}",
                 defaults: new { action = "Index", id = UrlParameter.Optional }
                 );
         }

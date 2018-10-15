@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using WebPlatform.DataLayer.Repository.Implementations;
 using WebPlatform.DataLayer.Repository.Interfaces;
 using WebPlatform.Models;

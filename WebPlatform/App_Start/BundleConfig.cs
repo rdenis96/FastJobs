@@ -54,6 +54,9 @@ namespace WebPlatform
 
             bundles.Add(new StyleBundle("~/bundles/Global/css").Include(
                         "~/Content/Global/Navbar.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/Profile/css/Preview").Include(
+                        "~/Content/Profile/Preview.css"));
         }
     }
 }

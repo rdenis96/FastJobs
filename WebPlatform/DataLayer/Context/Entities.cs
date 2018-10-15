@@ -18,10 +18,12 @@ namespace WebPlatform.DataLayer.Context
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<PersonalProfile> PersonalProfiles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             UserDefinitions.Set(modelBuilder);
+            PersonalProfileDefinitions.Set(modelBuilder);
         }
     }
 }

@@ -17,6 +17,8 @@ namespace WebPlatform.Models
         public DateTime Registerdate { get; set; }
         public string Ip { get; set; }
 
+        public virtual PersonalProfile PersonalProfile { get; set; }
+
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())

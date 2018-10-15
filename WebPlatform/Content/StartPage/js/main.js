@@ -232,7 +232,8 @@
                         alert(data.message);
                     else {
                         alert(data.message);
-                        window.location.replace('../home')
+                        localStorage.setItem("id", data.userId);
+                        window.location.replace(window.location.origin + '/home')
                     }
                 }
             });

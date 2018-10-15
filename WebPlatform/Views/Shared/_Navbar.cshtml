@@ -18,12 +18,12 @@
 </head>
 <body>
     <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar navbar-collapse col-md-7">
+            <input class="search-focus" type="text" placeholder="Search" aria-label="Search">
+        </div>
+        <div class="pull-left navbar-collapse col-md-5">
             <ul class="navbar-nav mr-auto">
+
                 <li class="nav-item active">
                     <a class="nav-link" href="#">
                         <i class="fa fa-home"></i>
@@ -47,11 +47,35 @@
                         Disabled
                     </a>
                 </li>
+                <li class="nav-item">
+                    <ul class="navbar-nav mr-auto  dropdown">
+                        <li class="nav-item" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link" href="#">
+                                <i class="fa fa-user-circle-o">
+                                </i>
+                                Profile
+                            </a>
+                            <div class="dropdown-menu mt-2 dropdown-custom bg-dark">
+                                <div class="dropdown-item">
+                                    <a href="/Profile/Preview">
+                                        <i class="fa fa-user-o">
+                                            Preview Profile
+                                        </i>
+                                    </a>
+                                </div>
+                                <div class="dropdown-item">
+                                    <a href='@Url.Action("Edit","Profile")'>
+                                        <i class="fa fa-edit">
+                                            Edit Profile
+                                        </i>
+                                    </a>
+                                </div>
+                                <div class="dropdown-item"><a href="#">Something else here</a></div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
     </nav>
 
